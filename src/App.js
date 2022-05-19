@@ -30,7 +30,13 @@ function App() {
     return (
       <div>
         {message.map((item, index) => {
-          return <p key={index}>{item.message}</p>;
+          return (
+            <div>
+              <p key={index}>
+                {item.message} from: {item.user ? item.user : item.id}
+              </p>
+            </div>
+          );
         })}
         <div>
           <input
@@ -42,7 +48,9 @@ function App() {
           ></input>
           <button
             onClick={() =>
-              localSocket.send(JSON.stringify({ id: "justin", message: text }))
+              localSocket.send(
+                JSON.stringify({ user: "justin", message: text })
+              )
             }
           >
             Send
