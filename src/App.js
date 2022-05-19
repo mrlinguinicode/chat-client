@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 function App() {
   const [message, setMessage] = useState();
   const [localSocket, setLocalSocket] = useState();
+  const [text, setText] = useState("");
 
   useEffect(() => {
     if (localSocket) {
@@ -31,6 +32,22 @@ function App() {
         {message.map((item, index) => {
           return <p key={index}>{item.message}</p>;
         })}
+        <div>
+          <input
+            type="text"
+            onChange={(e) => {
+              console.log(e.target.value);
+              setText(e.target.value);
+            }}
+          ></input>
+          <button
+            onClick={() =>
+              localSocket.send(JSON.stringify({ id: "justin", message: text }))
+            }
+          >
+            Send
+          </button>
+        </div>
       </div>
     );
   }
